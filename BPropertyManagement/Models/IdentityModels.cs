@@ -24,8 +24,10 @@ namespace BPropertyManagement.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        //Adding propert entity
+        public DbSet<Property> properties { get; set; }
 
-        DbSet<Property> properties { get; set; }
+        public DbSet<Realtor> realtors { get; set; }
 
         public static ApplicationDbContext Create()
         {

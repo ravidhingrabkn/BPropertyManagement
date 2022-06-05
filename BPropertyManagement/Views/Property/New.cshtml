@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Property</h2>
+
+<form action="/Property/Create" method="post">
+    <div>
+        <label>Property Name:</label><input name="PropertyName" />
+    </div>
+    <div>
+        <label>Type:</label><input type="text" name="Type" />
+    </div>
+    <div>
+        <label>Style:</label><input type="text" name="Style" />
+    </div>
+    <div>
+        <label>Size:</label><input name="Size" type="text" placeholder="size in sqft" />
+    </div>
+    <div>
+        <label>List Price:</label><input type="number" name="ListPrice" />
+    </div>
+    <div>
+        <label>Realtor Id:</label><input type="number" name="RealtorId" />
+    </div>
+    <div>
+        <input type="submit" value="Submit"  />
+    </div>
+
+</form>
+

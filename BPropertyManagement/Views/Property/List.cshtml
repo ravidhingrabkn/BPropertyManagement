@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BPropertyManagement.Models.PropertyDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2 style="border: 2px solid Black;  text-align: center; padding:15px; font-weight: bold;">List of Property</h2>
+<br />
+@foreach (var property in Model)
+
+{
+    
+        <h2><a style="text-decoration:none;" href="/Property/Details/@property.PropertyId">@property.PropertyName</a></h2>
+    
+    //<div>Type: @property.Type</div>
+    // <div>Style: @property.Style</div>
+    // <div>Size: @property.Size sqft</div>
+    // <div>ListPrice: $@property.ListPrice</div>
+    // <div>Realtor: @property.RealtorName</div>
+}
+<div style="border: 2px solid Black;border-radius:8px; padding: 10px; margin-left:50%; text-align: center; width: 200px;">
+    <a style="color:black;font-size:20px; text-decoration:none;" href="/Property/New">Add New Property</a>
+</div>
