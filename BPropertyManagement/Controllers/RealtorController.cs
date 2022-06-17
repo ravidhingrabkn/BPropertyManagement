@@ -11,100 +11,93 @@ using System.Web.Script.Serialization;
 
 namespace BPropertyManagement.Controllers
 {
-    public class PropertyController : Controller
+    public class RealtorController : Controller
     {
         private static readonly HttpClient client;
+        private JavaScriptSerializer jss = new JavaScriptSerializer();
 
-        static PropertyController()
+        static RealtorController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44341/api/propertydata/");
+            client.BaseAddress = new Uri("https://localhost:44341/api/realtordata/");
         }
 
-        // GET: Property/List
+
+        // GET: Realtor/List
         public ActionResult List()
         {
-            //reading data of all the properties from the database
-            //curl https://localhost:44341/api/propertydata/listproperty
+            //getting a data from realtor data api
+            //curl https://localhost:44341/api/realtordata/listrealtors
 
             
-            string url = "listproperty";
+            string url = "listrealtors";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
             //Debug.WriteLine(response.StatusCode);
 
-            IEnumerable<PropertyDto> property = response.Content.ReadAsAsync<IEnumerable<PropertyDto>>().Result;
+            IEnumerable<RealtorDto> realtors = response.Content.ReadAsAsync<IEnumerable<RealtorDto>>().Result;
+            //Debug.WriteLine("number of Realtor received : ");
+            //Debug.WriteLine(realtors.Count());
 
-            //Debug.WriteLine("number of property received : ");
-            //Debug.WriteLine(property.Count());
-
-
-            return View(property);
+            return View(realtors);
         }
 
-        // GET: Property/Details/5
+        // GET: Realtor/Details/5
         public ActionResult Details(int id)
         {
-            DetailsProperty ViewModel = new DetailsProperty();
-            //reading details of the property from the database
-            //curl https://localhost:44341/api/propertydata/FindProperty/{id}
+            DetailsRealtor ViewModel = new DetailsRealtor();
+            //getting a data from realtor data api
+            //curl https://localhost:44341/api/realtordata/findrealtor/{id}
 
-            
-            string url = "FindProperty/"+id;
+
+            string url = "findrealtor/"+id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Debug.WriteLine("The response code is ");
             Debug.WriteLine(response.StatusCode);
 
-            PropertyDto selectedproperty = response.Content.ReadAsAsync<PropertyDto>().Result;
+            RealtorDto selectedrealtor = response.Content.ReadAsAsync<RealtorDto>().Result;
 
+            Debug.WriteLine("Realtor received : ");
+            Debug.WriteLine(selectedrealtor.RealtorName);
 
-            
-            Debug.WriteLine("Property received : ");
-            Debug.WriteLine(selectedproperty.PropertyName);
+            ViewModel.SelectedRealtor = selectedrealtor;
 
-            ViewModel.SelectedProperty = selectedproperty;
-
-            
-            IEnumerable<RealtorDto> Realtors = response.Content.ReadAsAsync<IEnumerable<RealtorDto>>().Result;
-            ViewModel.Realtors = Realtors;
-
-            //return View(selectedproperty);
             return View(ViewModel);
         }
 
-        public ActionResult Error() 
+        public ActionResult Error()
         {
             return View();
         }
 
-        // GET: Property/Create
+        // GET: Realtor/New
         public ActionResult New()
         {
             return View();
         }
 
-        // POST: Property/Create
+        // POST: Realtor/Create
         [HttpPost]
-        public ActionResult Create(Property property)
+        public ActionResult Create(Realtor realtor)
         {
-            Debug.WriteLine("the json payload is :");
-            //Debug.WriteLine(property.PropertyName);
-            //objectice: Add new property
-            //curl -H "Content-Type:application/json" -d https://localhost:44341/api/propertydata/addproperty
-            string url = "AddProperty";
+            Debug.WriteLine("The jsonpayload is : ");
+            Debug.WriteLine(realtor.RealtorName);
 
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            string jsonpayload = jss.Serialize(property);
+            // Adding a new Realtor into our system using the API
+            //curl -H "Content-type:application/json" -d @realtor.json https://localhost:44341/api/realtordata/addrealtor
+            string url = "addrealtor";
+
+            
+            string jsonpayload = jss.Serialize(realtor);
 
             Debug.WriteLine(jsonpayload);
 
-            
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
 
-            HttpResponseMessage response =  client.PostAsync(url, content).Result;
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("List");
@@ -117,13 +110,13 @@ namespace BPropertyManagement.Controllers
             
         }
 
-        // GET: Property/Edit/5
+        // GET: Realtor/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Property/Edit/5
+        // POST: Realtor/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -139,21 +132,20 @@ namespace BPropertyManagement.Controllers
             }
         }
 
-        // GET: Property/Delete/5
+        // GET: Realtor/Delete/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "findproperty/" + id;
+            string url = "findrealtor/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            PropertyDto selectedproperty = response.Content.ReadAsAsync<PropertyDto>().Result;
-            return View(selectedproperty);
+            RealtorDto selectedrealtor = response.Content.ReadAsAsync<RealtorDto>().Result;
+            return View(selectedrealtor);
         }
 
-        // POST: Property/Delete/5
+        // POST: Realtor/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, FormCollection collection)
         {
-           
-            string url = "deleteproperty/"+id;
+            string url = "deleterealtor/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;

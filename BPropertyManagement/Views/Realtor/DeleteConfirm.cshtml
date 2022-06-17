@@ -1,0 +1,19 @@
+﻿@model BPropertyManagement.Models.RealtorDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this Realtor</h2>
+
+<a href="/Realtor/List">Cancel</a>
+<h2>@Model.RealtorName</h2>
+<div>Type: @Model.Phone</div>
+<div>Style: @Model.Email</div>
+
+
+<form action="/Realtor/Delete/@Model.RealtorId" method="POST">
+
+    <input type="submit" value="Confirm Delete" />
+
+</form>

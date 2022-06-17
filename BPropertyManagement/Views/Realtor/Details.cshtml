@@ -1,0 +1,11 @@
+﻿@model BPropertyManagement.Models.ViewModels.DetailsRealtor
+@{
+    ViewBag.Title = "View";
+}
+
+<a href="/Realtor/List">Back</a>
+  <a style="color:#ab2020; margin-left:10px;" href="/Realtor/DeleteConfirm/@Model.SelectedRealtor.RealtorId">Delete</a>
+
+<h2>Realtor Name: @Model.SelectedRealtor.RealtorName</h2>
+<div>Phone: @Model.SelectedRealtor.Phone</div>
+<div>Email: @Model.SelectedRealtor.Email</div>

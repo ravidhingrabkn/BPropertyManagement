@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Realtor</h2>
+<form action="/Realtor/Create" method="post">
+    <div>
+        <label>Name:</label><input type="text" name="RealtorName" />
+    </div>
+    <div>
+        <label>Phone:</label><input type="text" name="Phone" />
+    </div>
+    <div>
+        <label>Email:</label><input type="text" name="Email" />
+    </div>
+    <div style="margin-top: 5px;">
+        <input type="submit" value="Add Realtor"/> <a style="color:black;font-size:15px; border:1px solid black; padding:3.5px; border-radius:2px;background-color: lightgrey; text-decoration:none;" href="/Realtor/list">Cancel</a>
+    </div>
+</form>
+

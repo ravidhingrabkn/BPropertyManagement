@@ -13,7 +13,7 @@ namespace BPropertyManagement.Models
 
         public string RealtorName { get; set;}
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public string Email { get; set; }
 
@@ -25,7 +25,7 @@ namespace BPropertyManagement.Models
 
         public string RealtorName { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public string Email { get; set; }
 

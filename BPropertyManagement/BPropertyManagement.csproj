@@ -56,9 +56,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -186,6 +186,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\PropertyDataController.cs" />
+    <Compile Include="Controllers\RealtorController.cs" />
+    <Compile Include="Controllers\RealtorDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,12 +207,21 @@
     <Compile Include="Migrations\202206022136023_property-realtor.designer.cs">
       <DependentUpon>202206022136023_property-realtor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206140535208_UserPhone.cs" />
+    <Compile Include="Migrations\202206140535208_UserPhone.designer.cs">
+      <DependentUpon>202206140535208_UserPhone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206171755433_addviewmodel.cs" />
+    <Compile Include="Migrations\202206171755433_addviewmodel.designer.cs">
+      <DependentUpon>202206171755433_addviewmodel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Realtor.cs" />
+    <Compile Include="Models\ViewModels\DetailsRealtor.cs" />
     <Compile Include="Models\ViewModels\DetailsProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -225,6 +236,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="jsondata\property.json" />
+    <None Include="jsondata\realtor.json" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -277,10 +289,17 @@
     <Content Include="Views\Property\New.cshtml" />
     <Content Include="Views\Property\Error.cshtml" />
     <Content Include="Views\Property\DeleteConfirm.cshtml" />
+    <Content Include="Views\Realtor\List.cshtml" />
+    <Content Include="Views\Realtor\Details.cshtml" />
+    <Content Include="Views\Realtor\New.cshtml" />
+    <Content Include="Views\Realtor\Error.cshtml" />
+    <Content Include="Views\Realtor\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
     <Folder Include="Views\DetailsProperty\" />
+    <Folder Include="Views\DetailsRealtor\" />
     <Folder Include="Views\PropertyData\" />
   </ItemGroup>
   <ItemGroup>
@@ -308,6 +327,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206022136023_property-realtor.resx">
       <DependentUpon>202206022136023_property-realtor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206140535208_UserPhone.resx">
+      <DependentUpon>202206140535208_UserPhone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206171755433_addviewmodel.resx">
+      <DependentUpon>202206171755433_addviewmodel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
