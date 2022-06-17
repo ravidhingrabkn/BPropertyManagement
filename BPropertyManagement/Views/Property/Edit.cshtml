@@ -1,0 +1,47 @@
+﻿@model BPropertyManagement.Models.ViewModels.UpdateProperty
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Property</h2>
+
+<form action="~/Property/Update/@Model.SelectedProperty.PropertyId" method="POST">
+    <div style="display:none;">
+        @* Pass through the Property ID*@
+        <input type="text" name="PropertyId" value="@Model.SelectedProperty.PropertyId" />
+    </div>
+    <div>
+        <label>Name:</label><input type="text" name="PropertyName" value="@Model.SelectedProperty.PropertyName" />
+    </div>
+    <div>
+        <label>Type:</label><input type="text" name="Type" value="@Model.SelectedProperty.Type" />
+    </div>
+    <div>
+        <label>Style:</label><input type="text" name="Style" value="@Model.SelectedProperty.Style" />
+    </div>
+    <div>
+        <label>Size:</label><input type="text" name="Size" value="@Model.SelectedProperty.Size" />
+    </div>
+    <div>
+        <label>ListPrice:</label><input type="text" name="ListPrice" value="@Model.SelectedProperty.ListPrice" />
+    </div>
+    <div>
+        <label>Realtor ID:</label>
+        <select name="RealtorId">
+            @foreach (var realtor in Model.RealtorsOptions)
+            {
+                string selected = "";
+                if (realtor.RealtorId == Model.SelectedProperty.RealtorId)
+                {
+                    selected = "selected";
+                }
+                <option value="@realtor.RealtorId" @selected>@realtor.RealtorName</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <input type="submit" value="Update Property"/> 
+    </div>
+
+</form>

@@ -14,11 +14,12 @@ namespace BPropertyManagement.Controllers
     public class PropertyController : Controller
     {
         private static readonly HttpClient client;
+        private JavaScriptSerializer jss = new JavaScriptSerializer();
 
         static PropertyController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44341/api/propertydata/");
+            client.BaseAddress = new Uri("https://localhost:44341/api/");
         }
 
         // GET: Property/List
@@ -28,7 +29,7 @@ namespace BPropertyManagement.Controllers
             //curl https://localhost:44341/api/propertydata/listproperty
 
             
-            string url = "listproperty";
+            string url = "propertydata/listproperty";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             //Debug.WriteLine("The response code is ");
@@ -51,7 +52,7 @@ namespace BPropertyManagement.Controllers
             //curl https://localhost:44341/api/propertydata/FindProperty/{id}
 
             
-            string url = "FindProperty/"+id;
+            string url = "propertydata/FindProperty/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             Debug.WriteLine("The response code is ");
@@ -93,10 +94,9 @@ namespace BPropertyManagement.Controllers
             //Debug.WriteLine(property.PropertyName);
             //objectice: Add new property
             //curl -H "Content-Type:application/json" -d https://localhost:44341/api/propertydata/addproperty
-            string url = "AddProperty";
+            string url = "propertydata/AddProperty";
 
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            string jsonpayload = jss.Serialize(property);
+           string jsonpayload = jss.Serialize(property);
 
             Debug.WriteLine(jsonpayload);
 
@@ -120,29 +120,54 @@ namespace BPropertyManagement.Controllers
         // GET: Property/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UpdateProperty ViewModel = new UpdateProperty();
+
+            // Property to be selected 
+            string url = "propertydata/findproperty/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            PropertyDto selectedProperty = response.Content.ReadAsAsync<PropertyDto>().Result;
+            ViewModel.SelectedProperty = selectedProperty;
+
+            url = "realtordata/listrealtors/";
+            response = client.GetAsync(url).Result;
+            IEnumerable<RealtorDto> RealtorsOptions = response.Content.ReadAsAsync<IEnumerable<RealtorDto>>().Result;
+
+            ViewModel.RealtorsOptions = RealtorsOptions;
+
+
+            return View(ViewModel);
         }
 
-        // POST: Property/Edit/5
+        // POST: Property/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Property property)
         {
-            try
+
+            string url = "propertydata/updateproperty/" + id;
+            string jsonpayload = jss.Serialize(property);
+
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            Debug.WriteLine(content);
+
+            if(response.IsSuccessStatusCode)
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
 
         // GET: Property/Delete/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "findproperty/" + id;
+            string url = "propertydata/findproperty/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             PropertyDto selectedproperty = response.Content.ReadAsAsync<PropertyDto>().Result;
             return View(selectedproperty);
@@ -153,7 +178,7 @@ namespace BPropertyManagement.Controllers
         public ActionResult Delete(int id)
         {
            
-            string url = "deleteproperty/"+id;
+            string url = "propertydata/deleteproperty/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
