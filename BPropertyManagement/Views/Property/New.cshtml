@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<BPropertyManagement.Models.RealtorDto>
+
 @{
     ViewBag.Title = "Create";
 }
@@ -22,10 +23,17 @@
         <label>List Price:</label><input type="number" name="ListPrice" />
     </div>
     <div>
-        <label>Realtor Id:</label><input type="number" name="RealtorId" />
+        <label>Realtor Id:</label>
+        <!--<input type="number" name="RealtorId" />-->
+        <select name="RealtorId">
+            @foreach (var realtor in Model)
+            {
+                <option value="@realtor.RealtorId">@realtor.RealtorName</option>
+            }
+        </select>
     </div>
     <div>
-        <input type="submit" value="Submit"  />
+        <input type="submit" value="Add Property"  /> <a style="border:1px solid black; color: black; padding:3.6px 8px; border-radius:2px; background-color: lightgray; text-decoration:none;  " href="/Property/List">Cancel</a>
     </div>
 
 </form>

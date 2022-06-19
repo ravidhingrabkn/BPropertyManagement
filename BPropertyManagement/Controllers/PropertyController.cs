@@ -83,7 +83,11 @@ namespace BPropertyManagement.Controllers
         // GET: Property/Create
         public ActionResult New()
         {
-            return View();
+            string url = "realtordata/listrealtors";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<RealtorDto> RealtorOptions = response.Content.ReadAsAsync<IEnumerable<RealtorDto>>().Result;
+
+            return View(RealtorOptions);
         }
 
         // POST: Property/Create

@@ -221,6 +221,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Realtor.cs" />
+    <Compile Include="Models\ViewModels\UpdateRealtor.cs" />
     <Compile Include="Models\ViewModels\UpdateProperty.cs" />
     <Compile Include="Models\ViewModels\DetailsRealtor.cs" />
     <Compile Include="Models\ViewModels\DetailsProperty.cs" />
