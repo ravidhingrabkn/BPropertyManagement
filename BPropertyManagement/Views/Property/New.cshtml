@@ -8,22 +8,22 @@
 
 <form action="/Property/Create" method="post">
     <div>
-        <label>Property Name:</label><input name="PropertyName" />
+        <label>Property Name:</label><input style=" display: block;" name="PropertyName" />
     </div>
     <div>
-        <label>Type:</label><input type="text" name="Type" />
+        <label>Type:</label><input style="display: block;" type="text" name="Type" />
     </div>
     <div>
-        <label>Style:</label><input type="text" name="Style" />
+        <label>Style:</label><input style=" display: block;" type="text" name="Style" />
     </div>
     <div>
-        <label>Size:</label><input name="Size" type="text" placeholder="size in sqft" />
+        <label>Size:</label><input style=" display: block;" name="Size" type="text" placeholder="size in sqft" />
     </div>
     <div>
-        <label>List Price:</label><input type="number" name="ListPrice" />
+        <label>List Price:</label><input style=" display: block;" type="number" name="ListPrice" />
     </div>
-    <div>
-        <label>Realtor Id:</label>
+    <div style="padding-top:5px;">
+        <label>Realtor</label>
         <!--<input type="number" name="RealtorId" />-->
         <select name="RealtorId">
             @foreach (var realtor in Model)
