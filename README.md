@@ -16,6 +16,7 @@ How to Run This Project?
 3. Create an <App_Data> folder in the main project folder
 4. Go back to Visual Studio and open Package Manager Console and run the query to build the database on your local server:
      update-database
+     
 5.The project should set up
 
 Future Features & Improvements
